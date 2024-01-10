@@ -1,17 +1,12 @@
 class Solution:
     def minLength(self, s: str) -> int:
-        stack = []
-        for i in range(len(s)-1, -1, -1):
-            c = s[i]
-            if len(stack) > 0:
-                if c == 'C' and stack[-1] == 'D':
-                    stack.pop()
-                    continue
-                if c == 'A' and stack[-1] == 'B':
-                    stack.pop()
-                    continue
-            stack.append(c)
-        return len(stack)
+        stack = ['']  # 提前塞个空串, 后面可以不用判断是不是空
+        for c in s:
+            if (c == 'D' and stack[-1] == 'C') or (c == 'B' and stack[-1] == 'A'):
+                stack.pop()
+            else:
+                stack.append(c)
+        return len(stack) - 1
 
 
 if __name__ == '__main__':
